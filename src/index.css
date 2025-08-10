@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-suisse-intl: 'SuisseIntl', sans-serif;
+
+  --gradient-link-item: linear-gradient(to bottom, transparent 20%, #fff 21%);
+  --size-link-item: 0 2px;
+  --size-link-item-active: 100% 2px;
+  --position-link-item: 50% 1.3em;
+  --transition-link-item: background-size 0.3s ease-in-out 0.2s;
+}
