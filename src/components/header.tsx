@@ -6,20 +6,52 @@ import { MenuItem } from './menu-item'
 import { ButtonItem } from './button-item'
 import { ProductCard } from './product-card'
 import { ArticleCard } from './article-card'
+import { RebuyCartModal } from './rebuy-cart-modal'
+import { SearchBar } from './search-bar'
+import { MenuModal } from './menu-modal'
 
 export function Header() {
   const [menuType, setMenuType] = useState('')
+  const [showMenu, setShowMenu] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [showCart, setShowCart] = useState(false)
 
   const handleActive = (type: string) => {
     setMenuType(type)
+  }
+
+  const handleShowMenu = () => {
+    setShowMenu(true)
+  }
+
+  const handleCloseMenu = () => {
+    setShowMenu(false)
+  }
+
+  const handleShowSearch = () => {
+    setShowSearch(!showSearch)
+  }
+
+  const handleCloseSearch = () => {
+    setShowSearch(false)
+  }
+
+  const handleShowCart = () => {
+    setShowCart(true)
+  }
+
+  const handleCloseCart = () => {
+    setShowCart(false)
   }
 
   return (
     <div className='relative bg-black'>
       <div className='sticky mx-auto grid w-full max-w-400 grid-cols-3 items-center p-3.75 md:px-5 lg:px-7.5 lg:py-5 2xl:px-10'>
         <div>
-          <button className='block cursor-pointer lg:hidden'>
+          <button
+            className='block cursor-pointer lg:hidden'
+            onClick={handleShowMenu}
+          >
             <Icons.Menu className='h-3 w-4.5 text-gray-200' />
           </button>
           <div className='invisible absolute opacity-0 lg:visible lg:static lg:opacity-100'>
@@ -177,47 +209,21 @@ export function Header() {
           </a>
           <button
             className='hidden md:ml-1.5 lg:ml-5 lg:block'
-            onClick={() => setShowSearch(!showSearch)}
+            onClick={handleShowSearch}
           >
             <MenuItem>SEARCH</MenuItem>
           </button>
           <a href='/' className='hidden md:ml-1.5 lg:ml-5 lg:block'>
             <MenuItem>ACCOUNT</MenuItem>
           </a>
-          <button className='md:ml-1.5 lg:ml-4'>
+          <button className='md:ml-1.5 lg:ml-4' onClick={handleShowCart}>
             <MenuItem>CART(0)</MenuItem>
           </button>
         </div>
       </div>
-      <div
-        className={cn(
-          'invisible absolute top-0 right-0 left-0 z-50 h-screen bg-black pt-4.5 pb-8.75 opacity-0 transition-all duration-300 lg:top-full lg:h-auto',
-          {
-            'visible opacity-100': showSearch,
-          },
-        )}
-      >
-        <div className='mx-auto px-3.75 md:px-5 lg:px-7.5'>
-          <div className='flex w-full items-center gap-5 lg:mx-auto lg:max-w-102.75 lg:gap-4'>
-            <div className='relative flex-1'>
-              <div className='absolute top-3 left-4.5 lg:top-2 lg:left-3'>
-                <Icons.Search className='h-5 w-4 text-white' />
-              </div>
-              <input
-                className='size-full h-11.25 rounded-[27px] border-2 border-white py-[1.87px] pr-2.5 pl-9.5 text-xs leading-[140%] outline-0 lg:h-9 lg:text-[15px]'
-                type='text'
-                placeholder='Search'
-              />
-            </div>
-            <button
-              onClick={() => setShowSearch(false)}
-              className='cursor-pointer'
-            >
-              <Icons.Close className='size-3.5 text-white' />
-            </button>
-          </div>
-        </div>
-      </div>
+      <SearchBar show={showSearch} onClose={handleCloseSearch} />
+      <RebuyCartModal show={showCart} onClose={handleCloseCart} />
+      <MenuModal show={showMenu} onClose={handleCloseMenu} />
     </div>
   )
 }

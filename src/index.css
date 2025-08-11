@@ -8,4 +8,10 @@
   --size-link-item-active: 100% 2px;
   --position-link-item: 50% 1.3em;
   --transition-link-item: background-size 0.3s ease-in-out 0.2s;
+  --transition-rebuy-cart: right 0.25s ease-in-out;
+  --gradient-progress: linear-gradient(270.04deg, #040bf5 -6.69%, #fff 132.5%);
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
